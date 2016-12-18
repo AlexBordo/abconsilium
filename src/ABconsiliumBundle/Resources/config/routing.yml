@@ -1,0 +1,7 @@
+abconsilium_homepage:
+    path:     /
+    defaults: { _controller: ABconsiliumBundle:Default:index }
+
+index:
+    path:     /admin
+    defaults: { _controller: ABconsiliumBundle:Admin:index }
