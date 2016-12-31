@@ -5,3 +5,7 @@ abconsilium_homepage:
 index:
     path:     /admin
     defaults: { _controller: ABconsiliumBundle:Admin:index }
+
+login:
+    path:     /login
+    defaults: { _controller: ABconsiliumBundle:Security:login }
