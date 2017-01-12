@@ -2,7 +2,6 @@
 
 namespace ABconsiliumBundle\Entity;
 
-//use ABconsiliumBundle\Entity\EntityAuthorInterface;
 use ABconsiliumBundle\Traits\AuthorEntityTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;

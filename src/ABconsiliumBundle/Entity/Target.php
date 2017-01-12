@@ -5,8 +5,6 @@ namespace ABconsiliumBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Target
- *
  * @ORM\Table(name="targets")
  * @ORM\Entity(repositoryClass="ABconsiliumBundle\Repository\TargetRepository")
  */

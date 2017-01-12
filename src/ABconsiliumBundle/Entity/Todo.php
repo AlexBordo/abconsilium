@@ -5,8 +5,6 @@ namespace ABconsiliumBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Todo
- *
  * @ORM\Table(name="todos")
  * @ORM\Entity(repositoryClass="ABconsiliumBundle\Repository\TodoRepository")
  */
