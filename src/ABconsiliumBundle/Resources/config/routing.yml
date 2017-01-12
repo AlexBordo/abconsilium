@@ -9,3 +9,6 @@ index:
 login:
     path:     /login
     defaults: { _controller: ABconsiliumBundle:Security:login }
+
+logout:
+    path: /logout

@@ -4,19 +4,15 @@ namespace ABconsiliumBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="ABconsiliumBundle\Repository\UserRepository")
  */
-class User implements UserInterface, \Serializable
+class User extends AbstractEntity implements UserInterface, \Serializable
 {
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+
 
     /**
      * @ORM\Column(type="string", length=25, unique=true)
@@ -38,11 +34,28 @@ class User implements UserInterface, \Serializable
      */
     private $isActive;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Todo", mappedBy="author")
+     */
+    private $todos;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Target", mappedBy="author")
+     */
+    private $targets;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Aim", inversedBy="authors")
+     * @ORM\JoinTable(name="user_aim")
+     */
+    private $aims;
+
     public function __construct()
     {
+        $this->todos = new ArrayCollection();
+        $this->target = new ArrayCollection();
+        $this->aims = new ArrayCollection();
         $this->isActive = true;
-        // may not be needed, see section on salt below
-        // $this->salt = md5(uniqid(null, true));
     }
 
     public function getUsername()
@@ -52,8 +65,6 @@ class User implements UserInterface, \Serializable
 
     public function getSalt()
     {
-        // you *may* need a real salt depending on your encoder
-        // see section on salt below
         return null;
     }
 
@@ -78,7 +89,6 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            // see section on salt below
             // $this->salt,
         ));
     }
@@ -90,24 +100,11 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            // see section on salt below
             // $this->salt
             ) = unserialize($serialized);
     }
 
     /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set username
-     *
      * @param string $username
      *
      * @return User
@@ -120,8 +117,6 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set password
-     *
      * @param string $password
      *
      * @return User
@@ -134,8 +129,6 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set email
-     *
      * @param string $email
      *
      * @return User
@@ -148,8 +141,6 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Get email
-     *
      * @return string
      */
     public function getEmail()
@@ -158,8 +149,6 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set isActive
-     *
      * @param boolean $isActive
      *
      * @return User
@@ -172,12 +161,102 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Get isActive
-     *
      * @return boolean
      */
     public function getIsActive()
     {
         return $this->isActive;
+    }
+
+    /**
+     * @param \ABconsiliumBundle\Entity\Todo $todo
+     *
+     * @return User
+     */
+    public function addTodo(\ABconsiliumBundle\Entity\Todo $todo)
+    {
+        $this->todos[] = $todo;
+
+        return $this;
+    }
+
+    /**
+     * @param \ABconsiliumBundle\Entity\Todo $todo
+     */
+    public function removeTodo(\ABconsiliumBundle\Entity\Todo $todo)
+    {
+        $this->todos->removeElement($todo);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTodos()
+    {
+        return $this->todos;
+    }
+
+    /**
+     * @param \ABconsiliumBundle\Entity\Target $target
+     *
+     * @return User
+     */
+    public function addTarget(\ABconsiliumBundle\Entity\Target $target)
+    {
+        $this->targets[] = $target;
+
+        return $this;
+    }
+
+    /**
+     * @param \ABconsiliumBundle\Entity\Target $target
+     */
+    public function removeTarget(\ABconsiliumBundle\Entity\Target $target)
+    {
+        $this->targets->removeElement($target);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTarget()
+    {
+        return $this->targets;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTargets()
+    {
+        return $this->targets;
+    }
+
+    /**
+     * @param \ABconsiliumBundle\Entity\Aim $aim
+     *
+     * @return User
+     */
+    public function addAim(\ABconsiliumBundle\Entity\Aim $aim)
+    {
+        $this->aims[] = $aim;
+
+        return $this;
+    }
+
+    /**
+     * @param \ABconsiliumBundle\Entity\Aim $aim
+     */
+    public function removeAim(\ABconsiliumBundle\Entity\Aim $aim)
+    {
+        $this->aims->removeElement($aim);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAims()
+    {
+        return $this->aims;
     }
 }
