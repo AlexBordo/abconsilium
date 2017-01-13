@@ -63,6 +63,17 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    assets:
+        twbs_js:
+            inputs:
+                - '%kernel.root_dir%/../src/ABconsiliumBundle/Resources/public/twitterbootstrap/js/bootstrap.min.js'
+        twbs_css:
+            inputs:
+                - '%kernel.root_dir%/../src/ABconsiliumBundle/Resources/public/twitterbootstrap/css/bootstrap.min.css'
+
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
