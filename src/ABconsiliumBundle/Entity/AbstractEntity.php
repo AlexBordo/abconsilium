@@ -2,6 +2,7 @@
 
 namespace ABconsiliumBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 
 abstract class AbstractEntity
 {

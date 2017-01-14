@@ -12,3 +12,19 @@ login:
 
 logout:
     path: /logout
+
+get_user:
+    path:     /user/get
+    defaults: { _controller: ABconsiliumBundle:User:getUser }
+
+create_user:
+    path:     /user/create
+    defaults: { _controller: ABconsiliumBundle:User:createUser }
+
+update_user:
+    path:     /user/update
+    defaults: { _controller: ABconsiliumBundle:User:updateUser }
+
+delete_user:
+    path:     /user/delete
+    defaults: { _controller: ABconsiliumBundle:User:deleteUser }

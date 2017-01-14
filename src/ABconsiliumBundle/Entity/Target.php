@@ -2,6 +2,7 @@
 
 namespace ABconsiliumBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,6 +30,17 @@ class Target extends AbstractEntity
      * @ORM\JoinColumn(name="target_id", referencedColumnName="id")
      */
     private $author;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Todo", mappedBy="target")
+     */
+    private $todos;
+
+    public function __construct(User $user)
+    {
+        $this->todos = new ArrayCollection();
+        $this->author = $user;
+    }
 
     /**
      * @param string $title
@@ -85,5 +97,33 @@ class Target extends AbstractEntity
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * @param \ABconsiliumBundle\Entity\Todo $todo
+     *
+     * @return Target
+     */
+    public function addTodo(\ABconsiliumBundle\Entity\Todo $todo)
+    {
+        $this->todos[] = $todo;
+
+        return $this;
+    }
+
+    /**
+     * @param \ABconsiliumBundle\Entity\Todo $todo
+     */
+    public function removeTodo(\ABconsiliumBundle\Entity\Todo $todo)
+    {
+        $this->todos->removeElement($todo);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTodos()
+    {
+        return $this->todos;
     }
 }

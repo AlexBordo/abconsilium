@@ -9,7 +9,7 @@ trait AuthorEntityTrait
     /**
      * @param \ABconsiliumBundle\Entity\User $author
      *
-     * @return Aim
+     * @return $this
      */
     public function addAuthor(User $author)
     {

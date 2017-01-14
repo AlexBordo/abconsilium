@@ -26,9 +26,15 @@ class Todo extends AbstractEntity
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="todos")
-     * @ORM\JoinColumn(name="todo_id", referencedColumnName="id")
+     * @ORM\JoinTable(name="user_todo")
      */
     private $author;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Target", inversedBy="todos")
+     * @ORM\JoinColumn(name="target_id", referencedColumnName="id")
+     */
+    private $target;
 
     /**
      * @var \DateTime
@@ -36,6 +42,11 @@ class Todo extends AbstractEntity
      * @ORM\Column(name="dateCreated", type="datetime", nullable=true)
      */
     private $dateCreated;
+
+    public function __construct(User $user)
+    {
+        $this->author = $user;
+    }
 
     /**
      * @param string $title
@@ -112,5 +123,25 @@ class Todo extends AbstractEntity
     public function getDateCreated()
     {
         return $this->dateCreated;
+    }
+
+    /**
+     * @param \ABconsiliumBundle\Entity\Target $target
+     *
+     * @return Todo
+     */
+    public function setTarget(\ABconsiliumBundle\Entity\Target $target = null)
+    {
+        $this->target = $target;
+
+        return $this;
+    }
+
+    /**
+     * @return \ABconsiliumBundle\Entity\Target
+     */
+    public function getTarget()
+    {
+        return $this->target;
     }
 }

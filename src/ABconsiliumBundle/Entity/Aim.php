@@ -33,15 +33,16 @@ class Aim extends AbstractEntity implements EntityAuthorInterface
      */
     private $authors;
 
-    public function __construct()
+    public function __construct(User $user)
     {
         $this->authors = new ArrayCollection();
+        $this->addAuthor($user);
     }
 
     /**
      * @param string $title
      *
-     * @return Aim
+     * @return $this
      */
     public function setTitle($title)
     {
@@ -61,7 +62,7 @@ class Aim extends AbstractEntity implements EntityAuthorInterface
     /**
      * @param string $content
      *
-     * @return Aim
+     * @return $this
      */
     public function setContent($content)
     {

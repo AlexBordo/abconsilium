@@ -12,8 +12,6 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class User extends AbstractEntity implements UserInterface, \Serializable
 {
-
-
     /**
      * @ORM\Column(type="string", length=25, unique=true)
      */
@@ -53,7 +51,7 @@ class User extends AbstractEntity implements UserInterface, \Serializable
     public function __construct()
     {
         $this->todos = new ArrayCollection();
-        $this->target = new ArrayCollection();
+        $this->targets = new ArrayCollection();
         $this->aims = new ArrayCollection();
         $this->isActive = true;
     }
@@ -193,7 +191,7 @@ class User extends AbstractEntity implements UserInterface, \Serializable
      */
     public function getTodos()
     {
-        return $this->todos;
+        return $this->todos->getValues();
     }
 
     /**
@@ -221,7 +219,7 @@ class User extends AbstractEntity implements UserInterface, \Serializable
      */
     public function getTarget()
     {
-        return $this->targets;
+        return $this->targets->getValues();
     }
 
     /**
@@ -229,7 +227,7 @@ class User extends AbstractEntity implements UserInterface, \Serializable
      */
     public function getTargets()
     {
-        return $this->targets;
+        return $this->targets->getValues();
     }
 
     /**
